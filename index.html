@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>OneSignal Example</title>
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function (OneSignal) {
+            await OneSignal.init({
+                appId: "de1790e3-09a9-4bc3-b3ba-99db6ac8ccaf",
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="page-wrapper bg-red p-t-60 p-b-50">
+    <div class="wrapper wrapper--w900">
+        <div class="card card-6">
+            <div class="card-heading">
+                <h2 class="title">OneSignal Web Push Notification</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="operations.php" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="name">Title</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="title" placeholder="Notification Title"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Message *</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" name="message"
+                                          placeholder="Message sent to the users"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Image</div>
+                        <div class="value">
+                            <div class="input-group js-input-file">
+                                <input class="input-file" type="file" name="img_path" id="file">
+                                <label class="label--file" for="file">Choose image</label>
+                                <span class="input-file__info">No image chosen</span>
+                            </div>
+                            <div class="label--desc">Upload your notification image. Max file size 50 MB</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Launch URL</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-6" type="text" name="launch_url"
+                                       placeholder="www.example.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-2">
+                                <label id="label_notification_status"
+                                       style="font-size: 12px;width: 100%;text-align: left"></label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn--radius-2 btn--blue-2" id="send_notification" type="submit">Send
+                                Application
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery JS-->
+<script src="vendor/jquery/jquery.min.js"></script>
+
+<!-- Main JS-->
+<script src="js/global.js"></script>
+
+<script type="text/javascript">
+    function GetURLParameter() {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            console.log(sParameterName[0]);
+            if (sParameterName[0] === "status") {
+                if (sParameterName[1] === "success") {
+                    document.getElementById("label_notification_status").innerHTML = "Notification sent successfully.";
+                } else if (sParameterName[1] === "error") {
+                    document.getElementById("label_notification_status").innerHTML = "Error sending notification";
+                } else {
+                    document.getElementById("label_notification_status").innerHTML = "Incorrect transaction please contact us.";
+                }
+            }
+        }
+    }
+
+    GetURLParameter();
+</script>
+</body>
+</html>
